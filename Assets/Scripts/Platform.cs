@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Cube))]
+
 public class Platform : MonoBehaviour
 {
     public delegate void CubeCollisionHandler(Cube cube);
@@ -8,6 +10,7 @@ public class Platform : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Cube cube = collision.gameObject.GetComponent<Cube>();
+
         if (cube != null)
         {
             OnCubeCollision?.Invoke(cube);

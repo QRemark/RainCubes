@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 116300082}
   - component: {fileID: 116300081}
   - component: {fileID: 116300085}
+  - component: {fileID: 116300086}
   m_Layer: 0
   m_Name: Centr
   m_TagString: Platform
@@ -268,6 +269,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a26fa12aad7da4a81478f179cac2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &116300086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116300079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27c823892bdf0b43a1aa6f1b099d9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorChananger: {fileID: 0}
 --- !u!1 &633470715
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +296,7 @@ GameObject:
   - component: {fileID: 633470717}
   - component: {fileID: 633470720}
   - component: {fileID: 633470721}
+  - component: {fileID: 633470722}
   m_Layer: 0
   m_Name: Right
   m_TagString: Platform
@@ -414,6 +429,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a26fa12aad7da4a81478f179cac2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &633470722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633470715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27c823892bdf0b43a1aa6f1b099d9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorChananger: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +550,7 @@ GameObject:
   - component: {fileID: 859943015}
   - component: {fileID: 859943014}
   - component: {fileID: 859943013}
+  - component: {fileID: 859943019}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -541,6 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27c823892bdf0b43a1aa6f1b099d9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorChananger: {fileID: 859943019}
 --- !u!54 &859943014
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -648,12 +678,24 @@ Transform:
   m_GameObject: {fileID: 859943011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.15, y: -1.13, z: -6.35}
+  m_LocalPosition: {x: -46.9, y: -1.13, z: -2.3}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &859943019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859943011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8474e6d484ad0014bae597397f78332e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,8 +805,8 @@ MonoBehaviour:
   _cubePool: {fileID: 963194230}
   _startPoint: {fileID: 1084857495}
   _repeatRate: 0.5
-  _radiusX: 6
-  _radiusZ: 6
+  _radiusX: 8
+  _radiusZ: 8
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,6 +836,7 @@ GameObject:
   - component: {fileID: 989006918}
   - component: {fileID: 989006921}
   - component: {fileID: 989006922}
+  - component: {fileID: 989006923}
   m_Layer: 0
   m_Name: Downed
   m_TagString: Platform
@@ -926,6 +969,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a26fa12aad7da4a81478f179cac2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &989006923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989006916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27c823892bdf0b43a1aa6f1b099d9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorChananger: {fileID: 0}
 --- !u!1 &1084857495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,6 +1062,7 @@ GameObject:
   - component: {fileID: 1998024740}
   - component: {fileID: 1998024743}
   - component: {fileID: 1998024744}
+  - component: {fileID: 1998024745}
   m_Layer: 0
   m_Name: Left
   m_TagString: Platform
@@ -1138,6 +1195,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a26fa12aad7da4a81478f179cac2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1998024745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998024738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27c823892bdf0b43a1aa6f1b099d9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorChananger: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -2,10 +2,17 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
+    [SerializeField] private CubeColorChanger _colorChananger;
+
     private CubePool _cubePool;
-    private bool _colorChanged = false;
     private Renderer _renderer;
+
+    private bool _isColorChanged = false;
+
     private float _lifeTime;
+
+    private float _minLifeTimer = 2.0f;
+    private float _maxLifeTimer = 5.0f;
 
     private void Awake()
     {
@@ -15,7 +22,7 @@ public class Cube : MonoBehaviour
     public void Init(CubePool cubePool, Color initialColor)
     {
         _cubePool = cubePool;
-        _colorChanged = false;
+        _isColorChanged = false;
         _renderer.material.color = initialColor;
     }
 
@@ -31,23 +38,19 @@ public class Cube : MonoBehaviour
 
     private void HandlePlatformCollision(Cube cube)
     {
-        if (cube == this && !_colorChanged)
+        if (cube == this && _isColorChanged == false)
         {
-            ChangeColor();
+            _isColorChanged = true;
+
+            _colorChananger.ChangeColor(this);
+
             StartLifeTimer();
         }
     }
 
-    private void ChangeColor()
-    {
-        _colorChanged = true;
-
-        _renderer.material.color = new Color(Random.value, Random.value, Random.value);
-    }
-
     private void StartLifeTimer()
     {
-        _lifeTime = Random.Range(2f, 6f);
+        _lifeTime = Random.Range(_minLifeTimer, _maxLifeTimer + 1.0f);
         Invoke(nameof(ReturnToPool), _lifeTime);
     }
 
