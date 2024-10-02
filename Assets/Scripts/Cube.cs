@@ -1,16 +1,20 @@
+using System;
 using UnityEngine;
+
+[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class Cube : MonoBehaviour
 {
     [SerializeField] private CubeColorChanger _colorChananger;
 
-    private CubePool _cubePool;
     private Renderer _renderer;
+
+    private Action<Cube> _timeEnd;
 
     private bool _isColorChanged = false;
 
     private float _lifeTime;
-
     private float _minLifeTimer = 2.0f;
     private float _maxLifeTimer = 5.0f;
 
@@ -19,26 +23,16 @@ public class Cube : MonoBehaviour
         _renderer = GetComponent<Renderer>();
     }
 
-    public void Init(CubePool cubePool, Color initialColor)
+    public void Init(Color initialColor, Action<Cube> timeEnd)
     {
-        _cubePool = cubePool;
         _isColorChanged = false;
         _renderer.material.color = initialColor;
+        _timeEnd = timeEnd;
     }
 
-    private void OnEnable()
+    public void OnPlatformCollision()
     {
-        Platform.OnCubeCollision += HandlePlatformCollision;
-    }
-
-    private void OnDisable()
-    {
-        Platform.OnCubeCollision -= HandlePlatformCollision;
-    }
-
-    private void HandlePlatformCollision(Cube cube)
-    {
-        if (cube == this && _isColorChanged == false)
+        if (_isColorChanged == false)
         {
             _isColorChanged = true;
 
@@ -50,12 +44,12 @@ public class Cube : MonoBehaviour
 
     private void StartLifeTimer()
     {
-        _lifeTime = Random.Range(_minLifeTimer, _maxLifeTimer + 1.0f);
-        Invoke(nameof(ReturnToPool), _lifeTime);
+        _lifeTime = UnityEngine.Random.Range(_minLifeTimer, _maxLifeTimer + 1.0f);
+        Invoke(nameof(NotifyTimeEnd), _lifeTime);
     }
 
-    private void ReturnToPool()
+    private void NotifyTimeEnd()
     {
-        _cubePool.ReleaseCube(gameObject);
+        _timeEnd?.Invoke(this);
     }
 }

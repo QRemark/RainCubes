@@ -1,19 +1,12 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Cube))]
-
 public class Platform : MonoBehaviour
-{
-    public delegate void CubeCollisionHandler(Cube cube);
-    public static event CubeCollisionHandler OnCubeCollision;
-
+{ 
     private void OnCollisionEnter(Collision collision)
     {
-        Cube cube = collision.gameObject.GetComponent<Cube>();
-
-        if (cube != null)
+        if (collision.gameObject.TryGetComponent(out Cube cube))
         {
-            OnCubeCollision?.Invoke(cube);
+            cube.OnPlatformCollision();
         }
     }
 }
