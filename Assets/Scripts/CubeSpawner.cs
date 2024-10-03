@@ -3,7 +3,7 @@ using UnityEngine.Pool;
 
 public class CubeSpawner : MonoBehaviour
 { 
-    [SerializeField] private GameObject _startPoint;
+    [SerializeField] private Transform _startPoint;
     [SerializeField] private Cube _prefab;
     
     [SerializeField] private int _poolCapacity = 10;
@@ -19,8 +19,8 @@ public class CubeSpawner : MonoBehaviour
     {
         _pool = new ObjectPool<Cube>(
             createFunc: () => Instantiate(_prefab),
-            actionOnGet: (cube) => cube.gameObject.SetActive(true),
-            actionOnRelease: (cube) => cube.gameObject.SetActive(false),
+            actionOnGet: SubscribeOnCube,
+            actionOnRelease: UnsubscribeOnCube,
             actionOnDestroy: (cube) => Destroy(cube.gameObject),
             collectionCheck: true,
             defaultCapacity: _poolCapacity,
@@ -37,7 +37,7 @@ public class CubeSpawner : MonoBehaviour
     {
         Cube cube = _pool.Get();
 
-        cube.Init(Color.white, ReturnCubeInPool);
+        cube.Init(Color.white);
 
         return cube;
     }
@@ -46,16 +46,25 @@ public class CubeSpawner : MonoBehaviour
     {
         Cube cube = GetCube();
 
-        Vector3 spawnPosition = new Vector3(_startPoint.transform.position.x + Random.Range(-_radiusX, _radiusX),
-        _startPoint.transform.position.y,
-        _startPoint.transform.position.z + Random.Range(-_radiusZ, _radiusZ));
+        Vector3 spawnPosition = new Vector3(_startPoint.position.x + Random.Range(-_radiusX, _radiusX),
+        _startPoint.position.y,
+        _startPoint.position.z + Random.Range(-_radiusZ, _radiusZ));
 
         cube.transform.position = spawnPosition;
 
-        if (cube.TryGetComponent(out Rigidbody cubeRigidbody))
-        {
-            cubeRigidbody.velocity = Vector3.zero;
-        }
+        cube.ResetSpeed();
+    }
+
+    private void SubscribeOnCube(Cube cube) 
+    {
+        cube.gameObject.SetActive(true);
+        cube.OnTimerEnded += ReturnCubeInPool;
+    }
+
+    private void UnsubscribeOnCube(Cube cube)
+    {
+        cube.gameObject.SetActive(false);
+        cube.OnTimerEnded -= ReturnCubeInPool;
     }
 
     private void ReturnCubeInPool(Cube cube)

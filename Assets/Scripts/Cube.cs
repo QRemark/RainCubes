@@ -3,14 +3,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Rigidbody))]
-
 public class Cube : MonoBehaviour
 {
     [SerializeField] private CubeColorChanger _colorChananger;
 
     private Renderer _renderer;
+    private Rigidbody _rigidbody;
 
-    private Action<Cube> _timeEnd;
+    public event Action<Cube> OnTimerEnded;
 
     private bool _isColorChanged = false;
 
@@ -21,24 +21,32 @@ public class Cube : MonoBehaviour
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Init(Color initialColor, Action<Cube> timeEnd)
+    public void Init(Color initialColor)
     {
         _isColorChanged = false;
         _renderer.material.color = initialColor;
-        _timeEnd = timeEnd;
     }
 
-    public void OnPlatformCollision()
+    public void ResetSpeed()
     {
-        if (_isColorChanged == false)
+        _rigidbody.velocity = Vector3.zero;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Platform platform))
         {
-            _isColorChanged = true;
+            if (_isColorChanged == false)
+            {
+                _isColorChanged = true;
 
-            _colorChananger.ChangeColor(this);
+                _colorChananger.ChangeColor();
 
-            StartLifeTimer();
+                StartLifeTimer();
+            }
         }
     }
 
@@ -50,6 +58,6 @@ public class Cube : MonoBehaviour
 
     private void NotifyTimeEnd()
     {
-        _timeEnd?.Invoke(this);
+        OnTimerEnded?.Invoke(this);
     }
 }
